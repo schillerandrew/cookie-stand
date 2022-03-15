@@ -1,3 +1,33 @@
 body {
-  background-color: salmon;
+  background-color: #94877F;
+}
+
+h1, h2 {
+  text-align: center;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+table {
+  background-color: mintcream;
+  border-color: salmon;
+  border-width: 2px;
+  border-style: dashed;
+  margin-left: auto; 
+  margin-right: auto;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+th {
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+td {
+  border-color: salmon;
+  border-width: 2px;
+  border-style: solid;
+  padding: 20px;
+  width: 30px;
 }
