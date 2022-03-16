@@ -1,3 +1,37 @@
 body {
-  background-color: salmon;
+  background-color: #3EA9AD;
+}
+
+h1, h2 {
+  text-align: center;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 30px;
+  }
+
+table {
+  background-color: #66F4FA;
+  border-color: salmon;
+  border-width: 2px;
+  border-style: solid;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th {
+  font-weight: bold;
+  vertical-align: middle;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 15px;
+}
+
+td {
+  border-color: salmon;
+  border-width: 2px;
+  border-style: dashed;
+  padding: 15px;
+  text-align: center;
+  vertical-align: middle;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  width: 15px;
 }

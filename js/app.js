@@ -30,8 +30,8 @@ Store.prototype.calculateCookieSchedule = function () {
   }
 };
 
-// method to render header row to HTML page
-Store.prototype.renderHeader = function () {
+// function to render header row to HTML page
+function renderHeader() {
   // create a header row
   let headerRow = document.createElement('tr');
   // add to DOM
@@ -62,10 +62,10 @@ Store.prototype.renderHeader = function () {
   headerDailyTotal.innerText = 'Daily Location Total';
   // add to DOM
   headerRow.appendChild(headerDailyTotal);
-};
+}
 
 // method for rendering one row to the table, that contains cookie guesstimates
-Store.prototype.renderStore = function() {
+Store.prototype.renderStore = function () {
 
   // create a row
   let row = document.createElement('tr');
@@ -99,18 +99,19 @@ Store.prototype.renderStore = function() {
 };
 
 // creating an object for each store
-new Store ('Seattle', 23, 65, 6.3);
-new Store ('Tokyo', 3, 24, 1.2);
-new Store ('Dubai', 11, 38, 3.7);
-new Store ('Paris', 20, 38, 2.3);
-new Store ('Lima', 2, 16, 4.6);
+new Store('Seattle', 23, 65, 6.3);
+new Store('Tokyo', 3, 24, 1.2);
+new Store('Dubai', 11, 38, 3.7);
+new Store('Paris', 20, 38, 2.3);
+new Store('Lima', 2, 16, 4.6);
 
 function displayStores() {
+  renderHeader();
   for (let i = 0; i < storeValues.length; i++) {
     storeValues[i].calculateCookieSchedule();
-    storeValues[i].renderHeader();
     storeValues[i].renderStore();
   }
 }
 
 displayStores();
+
