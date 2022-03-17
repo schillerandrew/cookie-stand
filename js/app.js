@@ -162,8 +162,12 @@ function handleSubmit (event) {
 
   let newStore = new Store (cityName, minCust, maxCust, avgCook);
 
+  let bottomRow = document.getElementById('city-schedule').rows.length - 1;
+  document.getElementById('city-schedule').deleteRow(bottomRow);
+
   newStore.calculateCookieSchedule();
   newStore.renderStore();
+  renderFooterRow();
 }
 
 // EVENT HANDLING STEP 2 >>> add event listener
