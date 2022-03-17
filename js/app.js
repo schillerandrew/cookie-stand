@@ -172,4 +172,3 @@ function handleSubmit (event) {
 
 // EVENT HANDLING STEP 2 >>> add event listener
 userSubmittedForm.addEventListener('submit', handleSubmit);
-
