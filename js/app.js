@@ -26,7 +26,7 @@ function Store(city, minCust, maxCust, avgCook) {
 
 // function to render header row to HTML page
 function renderHeaderRow() {
-  // create a header row
+  // create a row
   let headerRow = document.createElement('tr');
   // add to DOM
   tableElem.appendChild(headerRow);
@@ -40,8 +40,7 @@ function renderHeaderRow() {
   // array for holding each header
   let hourOfTheDay = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', 'Daily Location Total'];
   // render each header
-  let i = 0;
-  for (i = 0; i < hourOfTheDay.length; i++) {
+  for (let i = 0; i < hourOfTheDay.length; i++) {
     // create header
     let headers = document.createElement('th');
     // add context
@@ -53,8 +52,7 @@ function renderHeaderRow() {
 
 // method to calculate cookies needed for each hour, given customer guesstimate
 Store.prototype.calculateCookieSchedule = function () {
-  let i = 0;
-  for (i = 0; i < 14; i++) {
+  for (let i = 0; i < 14; i++) {
     let tempRandomNum = Math.floor(randomNumber(this.minCustomersPerHour, this.maxCustomersPerHour));
     this.cookiesForGivenHour[i] = Math.floor(tempRandomNum * this.avgCookiesPerSale);
     this.totalCookies = this.totalCookies + this.cookiesForGivenHour[i];
@@ -77,8 +75,7 @@ Store.prototype.renderStore = function () {
   row.appendChild(tdName);
 
   // render each td, which contains a cookie guesstimate
-  let i = 0;
-  for (i = 0; i < this.cookiesForGivenHour.length; i++) {
+  for (let i = 0; i < this.cookiesForGivenHour.length; i++) {
     // create td
     let tdTag = document.createElement('td');
     // add context
@@ -96,7 +93,45 @@ Store.prototype.renderStore = function () {
 };
 
 // function for rendering footer ("Grandaddy of Totals") row
+function renderFooterRow () {
+  // create a row
+  let row = document.createElement('tr');
+  // add to DOM
+  tableElem.appendChild(row);
 
+  // create td that labels this row
+  let tdTotals = document.createElement('td');
+  // add context
+  tdTotals.innerText = 'Totals';
+  // add to DOM
+  row.appendChild(tdTotals);
+
+  // render each td, which contains hourly totals
+  for (let i = 0; i < 14; i++) {
+    let hourlyTotal = 0;
+    for (let j = 0; j < storeValues.length; j++) {
+      hourlyTotal += storeValues[j].cookiesForGivenHour[i];
+    }
+    // create td
+    let tdTag = document.createElement('td');
+    // add context
+    tdTag.innerText = `${hourlyTotal}`;
+    // add to DOM
+    row.appendChild(tdTag);
+  }
+
+  // render the bottom-right "Grandaddy of Totals"
+  let grandTotal = 0;
+  for (let i = 0; i < storeValues.length; i++) {
+    grandTotal += storeValues[i].totalCookies;
+  }
+  // create td
+  let tdGrandaddy = document.createElement('td');
+  // add context
+  tdGrandaddy.innerText = `${grandTotal}`;
+  // add to DOM
+  row.appendChild(tdGrandaddy);
+}
 
 // creating an object for each store
 new Store('Seattle', 23, 65, 6.3);
@@ -111,6 +146,7 @@ function displayStores() {
     storeValues[i].calculateCookieSchedule();
     storeValues[i].renderStore();
   }
+  renderFooterRow();
 }
 
 displayStores();
