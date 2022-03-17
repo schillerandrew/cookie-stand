@@ -1,13 +1,27 @@
 body {
   background-color: #3EA9AD;
+  }
+
+nav img {
+  border-radius: 20px;
+  background-color: #66F4FA;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 h1, h2 {
   text-align: center;
-  font-weight: bold;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 30px;
+  font-family: 'Fredoka One', cursive;
+  /* font-family: 'Comfortaa', cursive; */
+  font-size: 100px;
+  color: #66F4FA;
   }
+
+figcaption {
+  font-family: 'Fredoka One', cursive;
+}
 
 table {
   background-color: #66F4FA;
