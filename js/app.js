@@ -6,6 +6,9 @@ function randomNumber(min, max) {
 // create window into DOM
 let tableElem = document.getElementById('city-schedule');
 
+// EVENT HANDLING STEP ONE >>> get user-submitted form, from the DOM
+let userSubmittedForm = document.getElementById('add-city');
+
 // holds values from Store objects
 let storeValues = [];
 
@@ -21,17 +24,8 @@ function Store(city, minCust, maxCust, avgCook) {
   storeValues.push(this);
 }
 
-// method to calculate cookies needed for each hour, given customer guesstimate
-Store.prototype.calculateCookieSchedule = function () {
-  let i = 0;
-  for (i = 0; i < 14; i++) {
-    this.cookiesForGivenHour[i] = Math.floor(randomNumber(this.minCustomersPerHour, this.maxCustomersPerHour) * this.avgCookiesPerSale);
-    this.totalCookies = this.totalCookies + Math.floor(randomNumber(this.minCustomersPerHour, this.maxCustomersPerHour) * this.avgCookiesPerSale);
-  }
-};
-
 // function to render header row to HTML page
-function renderHeader() {
+function renderHeaderRow() {
   // create a header row
   let headerRow = document.createElement('tr');
   // add to DOM
@@ -44,7 +38,7 @@ function renderHeader() {
   headerRow.appendChild(topLeftEmptyCell);
 
   // array for holding each header
-  let hourOfTheDay = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+  let hourOfTheDay = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', 'Daily Location Total'];
   // render each header
   let i = 0;
   for (i = 0; i < hourOfTheDay.length; i++) {
@@ -55,14 +49,17 @@ function renderHeader() {
     // add to DOM
     headerRow.appendChild(headers);
   }
-
-  // create header for "Daily Location Total"
-  let headerDailyTotal = document.createElement('th');
-  // add context
-  headerDailyTotal.innerText = 'Daily Location Total';
-  // add to DOM
-  headerRow.appendChild(headerDailyTotal);
 }
+
+// method to calculate cookies needed for each hour, given customer guesstimate
+Store.prototype.calculateCookieSchedule = function () {
+  let i = 0;
+  for (i = 0; i < 14; i++) {
+    let tempRandomNum = Math.floor(randomNumber(this.minCustomersPerHour, this.maxCustomersPerHour));
+    this.cookiesForGivenHour[i] = Math.floor(tempRandomNum * this.avgCookiesPerSale);
+    this.totalCookies = this.totalCookies + this.cookiesForGivenHour[i];
+  }
+};
 
 // method for rendering one row to the table, that contains cookie guesstimates
 Store.prototype.renderStore = function () {
@@ -98,6 +95,9 @@ Store.prototype.renderStore = function () {
   row.appendChild(tdTagTotal);
 };
 
+// function for rendering footer ("Grandaddy of Totals") row
+
+
 // creating an object for each store
 new Store('Seattle', 23, 65, 6.3);
 new Store('Tokyo', 3, 24, 1.2);
@@ -106,7 +106,7 @@ new Store('Paris', 20, 38, 2.3);
 new Store('Lima', 2, 16, 4.6);
 
 function displayStores() {
-  renderHeader();
+  renderHeaderRow();
   for (let i = 0; i < storeValues.length; i++) {
     storeValues[i].calculateCookieSchedule();
     storeValues[i].renderStore();
@@ -114,4 +114,22 @@ function displayStores() {
 }
 
 displayStores();
+
+// EVENT HANDLING STEP 3 >>> define event handler function
+function handleSubmit (event) {
+  event.preventDefault();
+
+  let cityName = event.target.cityName.value;
+  let minCust = event.target.minCust.value;
+  let maxCust = event.target.maxCust.value;
+  let avgCook = event.target.avgCook.value;
+
+  let newStore = new Store (cityName, minCust, maxCust, avgCook);
+
+  newStore.calculateCookieSchedule();
+  newStore.renderStore();
+}
+
+// EVENT HANDLING STEP 2 >>> add event listener
+userSubmittedForm.addEventListener('submit', handleSubmit);
 
