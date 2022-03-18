@@ -156,9 +156,9 @@ function handleSubmit (event) {
   event.preventDefault();
 
   let cityName = event.target.cityName.value;
-  let minCust = event.target.minCust.value;
-  let maxCust = event.target.maxCust.value;
-  let avgCook = event.target.avgCook.value;
+  let minCust = 1 * event.target.minCust.value;
+  let maxCust = 1 * event.target.maxCust.value;
+  let avgCook = 1 * event.target.avgCook.value;
 
   let newStore = new Store (cityName, minCust, maxCust, avgCook);
 
@@ -172,3 +172,4 @@ function handleSubmit (event) {
 
 // EVENT HANDLING STEP 2 >>> add event listener
 userSubmittedForm.addEventListener('submit', handleSubmit);
+
